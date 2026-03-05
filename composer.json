@@ -1,0 +1,39 @@
+{
+    "name": "mailbino/laravel",
+    "description": "Laravel SDK for Mailbino — mail driver + API client",
+    "keywords": ["laravel", "mailbino", "email", "transactional-email"],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0",
+        "illuminate/mail": "^11.0|^12.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mailbino\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mailbino\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mailbino\\Laravel\\MailbinoServiceProvider"
+            ],
+            "aliases": {
+                "Mailbino": "Mailbino\\Laravel\\Facades\\Mailbino"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
