@@ -16,10 +16,16 @@ class MailbinoClient
 
     public function __construct(
         protected string $apiToken,
-        string $baseUrl = 'https://mailbino.com/api',
+        string $baseUrl = 'https://mailbino.com',
         ?string $testRecipient = null,
     ) {
         $this->baseUrl = rtrim($baseUrl, '/');
+
+        // Ensure the base URL ends with /api
+        if (! str_ends_with($this->baseUrl, '/api')) {
+            $this->baseUrl .= '/api';
+        }
+
         $this->testRecipient = $testRecipient;
 
         $this->http = new Client([

@@ -11,7 +11,7 @@ return [
     | your app's API Tokens tab. Needs at least the 'send' scope.
     |
     */
-    'api_token' => env('MAILBINO_API_TOKEN'),
+    'api_token' => env('MAILBINO_API_TOKEN', env('MAILBINO_API_KEY')),
 
     /*
     |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ return [
     | The Mailbino API base URL. Override for self-hosted instances.
     |
     */
-    'base_url' => env('MAILBINO_URL', 'https://mailbino.com/api'),
+    'base_url' => env('MAILBINO_URL', env('MAILBINO_API_URL', 'https://mailbino.com')),
 
     /*
     |--------------------------------------------------------------------------

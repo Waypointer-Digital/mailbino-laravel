@@ -17,7 +17,7 @@ class MailbinoServiceProvider extends ServiceProvider
 
             return new MailbinoClient(
                 apiToken: $config['api_token'] ?? '',
-                baseUrl: $config['base_url'] ?? 'https://mailbino.com/api',
+                baseUrl: $config['base_url'] ?? 'https://mailbino.com',
                 testRecipient: $config['test_recipient'] ?? null,
             );
         });
