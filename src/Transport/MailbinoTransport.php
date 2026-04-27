@@ -106,6 +106,24 @@ class MailbinoTransport extends AbstractTransport
             }
         }
 
+        // Tracking overrides — boolean headers, app-default applies when absent.
+        // Use these to disable click-rewriting for transactional emails like
+        // magic-link sign-in: the wrapped tracker URL would break iOS Universal
+        // Links because the device claim only fires on the originally tapped
+        // URL, never on a 302 to the real destination.
+        $boolHeaders = [
+            'X-Mailbino-Tracking-Clicks' => 'tracking_clicks',
+            'X-Mailbino-Tracking-Opens' => 'tracking_opens',
+        ];
+
+        foreach ($boolHeaders as $header => $key) {
+            if ($headers->has($header)) {
+                $raw = strtolower(trim($headers->get($header)->getBodyAsString()));
+                $payload[$key] = ! in_array($raw, ['0', 'false', 'no', 'off', ''], true);
+                $headers->remove($header);
+            }
+        }
+
         // Metadata from header (JSON-encoded)
         if ($headers->has('X-Mailbino-Metadata')) {
             $metadata = json_decode($headers->get('X-Mailbino-Metadata')->getBodyAsString(), true);
