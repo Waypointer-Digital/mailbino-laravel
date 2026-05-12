@@ -146,6 +146,20 @@ class MailbinoTransport extends AbstractTransport
             $payload['headers'] = $customHeaders;
         }
 
+        // Attachments: extract from Symfony Email, base64-encode for JSON transport.
+        $attachments = [];
+        foreach ($email->getAttachments() as $attachment) {
+            $contentType = $attachment->getMediaType() . '/' . $attachment->getMediaSubtype();
+            $attachments[] = [
+                'filename' => $attachment->getFilename() ?? 'attachment',
+                'content_type' => $contentType,
+                'content' => base64_encode($attachment->getBody()),
+            ];
+        }
+        if (! empty($attachments)) {
+            $payload['attachments'] = $attachments;
+        }
+
         return $payload;
     }
 
